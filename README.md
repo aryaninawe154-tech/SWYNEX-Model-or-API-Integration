@@ -109,3 +109,29 @@ Predicted Category: Network
 - Support multiple languages
 - Compare different classification models
 - Add automatic troubleshooting suggestions
+
+
+## Actual Test Results
+The prototype was tested locally using Python.
+
+### Test 1
+Input: "Wi-Fi is connected but internet is not working"
+Output: Network
+
+### Test 2
+Input: "Keyboard is not working"
+Output: Hardware
+
+### Test 3
+Input: "VS Code is not opening"
+Output: Software
+
+### Test 4
+Input: "I cannot login to the lab computer"
+Output: Login/Account
+
+### Test 5
+Input: "My Java program is not compiling"
+
+Output: Programming
+All five test inputs were successfully processed by the trained classification model.
