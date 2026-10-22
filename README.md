@@ -1,71 +1,31 @@
 # SWYNEX-Model-or-API-Integration
-AI-based prototype for classifying college computer laboratory issues.
 
+## Campus Lab Issue Classifier 🤖
 
-This project is a small NLP-based prototype for classifying common college computer laboratory complaints.
-The prototype uses TF-IDF for text feature extraction and Logistic Regression for issue classification.
-Student Complaint
-        ↓
-Text Input
-        ↓
-TF-IDF Feature Extraction
-        ↓
-Logistic Regression Model
-        ↓
-Predicted Issue Category
-The model currently classifies complaints into:
+An AI-based prototype that classifies common college computer laboratory complaints and suggests possible troubleshooting solutions.
+
+## How It Works
+
+Student Complaint → TF-IDF Feature Extraction → Logistic Regression → Predicted Category → Suggested Solution
+
+## Supported Categories
+
 - Network
 - Hardware
 - Software
 - Login/Account
 - Programming
-Input:
 
-"Wi-Fi is connected but internet is not working"
+## Features
 
-Output:
-
-"Network"
-
-### Example 2
-
-Input:
-
-"The keyboard is not responding"
-
-Output:
-
-"Hardware"
-
-### Example 3
-
-Input:
-
-"VS Code is not opening"
-
-Output:
-
-"Software"
-
-### Example 4
-
-Input:
-
-"I cannot login to the lab computer"
-
-Output:
-
-"Login/Account"
-
-### Example 5
-
-Input:
-
-"My Java program is not compiling"
-
-Output:
-
-"Programming"
+- NLP-based complaint classification
+- TF-IDF text feature extraction
+- Logistic Regression model
+- Prediction confidence score
+- Automatic troubleshooting suggestions
+- Empty-input validation
+- Low-confidence handling
+- Model evaluation report
 
 ## Technologies Used
 
@@ -76,69 +36,55 @@ Output:
 
 ## Installation
 
-Install the required dependency using:
+Install the required dependency:
 
+```bash
 pip install -r requirements.txt
+```
 
-## Running the Prototype
+## Run the Project
 
-Run the following command:
-
+```bash
 python app.py
+```
 
-The program will display the student complaint and the predicted issue category.
+## Example
 
-## Sample Output
+**Input:** My Java program is not compiling
 
-Student Complaint: Wi-Fi is connected but internet is not working
+**Predicted Category:** Programming
 
-Predicted Category: Network
+**Suggested Solution:** Check syntax errors and read the error message.
+
+## Error Handling
+
+- Empty complaints return an error message asking the user to enter a complaint.
+- Low-confidence predictions ask the user to provide more details or contact lab support.
+
+## Evaluation Results
+
+The model achieved **100% accuracy on its 16 training examples**.
+
+This is training-data accuracy, not independent test accuracy. Further testing on unseen complaints is required to evaluate real-world performance.
+
+The prototype also generates a classification report containing precision, recall, F1-score, and support for each category.
 
 ## Limitations
 
-- The prototype uses a small sample dataset.
-- The current model focuses on English complaints.
-- The model is intended as a baseline prototype.
-- More training data would be required for reliable real-world deployment.
+- The training dataset is small.
+- The model currently focuses on English complaints.
+- Confidence scores are estimates, not guarantees of correctness.
+- The prototype requires evaluation on more unseen examples before real-world use.
 
 ## Future Improvements
 
-- Expand the training dataset
-- Add priority prediction
-- Add a web interface
-- Support multiple languages
-- Compare different classification models
-- Add automatic troubleshooting suggestions
+- Expand the training dataset.
+- Evaluate on unseen complaints.
+- Add priority prediction.
+- Develop a web interface.
+- Support multiple languages.
+- Compare different classification models.
 
+## Author
 
-## Actual Test Results
-The prototype was tested locally using Python.
-
-### Test 1
-Input: "Wi-Fi is connected but internet is not working"
-Output: Network
-
-### Test 2
-Input: "Keyboard is not working"
-Output: Hardware
-
-### Test 3
-Input: "VS Code is not opening"
-Output: Software
-
-### Test 4
-Input: "I cannot login to the lab computer"
-Output: Login/Account
-
-### Test 5
-Input: "My Java program is not compiling"
-
-Output: Programming
-All five test inputs were successfully processed by the trained classification model.
-
-Added actual test results
-
-
-
-
-Added actual test results
+Arya Ninawe
