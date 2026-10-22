@@ -1,5 +1,8 @@
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report
+
 complaints = [
     "Wi-Fi is not working",
     "Internet is disconnected",
@@ -20,22 +23,11 @@ complaints = [
 ]
 
 categories = [
-    "Network",
-    "Network",
-    "Network",
-    "Hardware",
-    "Hardware",
-    "Hardware",
-    "Software",
-    "Software",
-    "Software",
-    "Login/Account",
-    "Login/Account",
-    "Login/Account",
-    "Programming",
-    "Programming",
-    "Programming",
-    "Programming"
+    "Network", "Network", "Network",
+    "Hardware", "Hardware", "Hardware",
+    "Software", "Software", "Software",
+    "Login/Account", "Login/Account", "Login/Account",
+    "Programming", "Programming", "Programming", "Programming"
 ]
 
 vectorizer = TfidfVectorizer()
@@ -45,17 +37,62 @@ model = LogisticRegression()
 model.fit(X, categories)
 
 
-def classify_issue(complaint):
+def get_solution(category):
+    solutions = {
+        "Network": "Check Wi-Fi and internet connectivity.",
+        "Hardware": "Check device connections and restart the computer.",
+        "Software": "Restart the application or reinstall it if needed.",
+        "Login/Account": "Check your credentials or contact lab support.",
+        "Programming": "Check syntax errors and read the error message."
+    }
+    return solutions.get(category, "Contact lab support.")
+
+
+def handle_complaint(complaint):
+    if not complaint or not complaint.strip():
+        return "Error: Please enter a complaint."
+
     complaint_vector = vectorizer.transform([complaint])
-    prediction = model.predict(complaint_vector)[0]
+    probabilities = model.predict_proba(complaint_vector)[0]
+    best_index = probabilities.argmax()
 
-    return prediction
+    category = model.classes_[best_index]
+    confidence = probabilities[best_index]
 
-user_complaint = "Wi-Fi is connected but internet is not working"
+    if confidence < 0.30:
+        return (
+            "Complaint unclear. Please provide more details "
+            "or contact lab support."
+        )
 
-result = classify_issue(user_complaint)
+    return (
+        f"Complaint: {complaint}\n"
+        f"Predicted Category: {category}\n"
+        f"Confidence: {confidence:.2%}\n"
+        f"Suggested Solution: {get_solution(category)}"
+    )
 
-print("Student Complaint:", user_complaint)
-print("Predicted Category:", result)
+
+print("--- TASK 3: INTELLIGENT ISSUE CLASSIFIER ---")
+
+test_complaints = [
+    "Wi-Fi is not working",
+    "Keyboard is broken",
+    "I cannot login to my account",
+    "My Java program is not compiling",
+    ""
+]
+
+for complaint in test_complaints:
+    print("\nTesting:", repr(complaint))
+    print(handle_complaint(complaint))
 
 
+y_pred = model.predict(X)
+
+print("\n--- MODEL EVALUATION ---")
+print(
+    "Training-data accuracy:",
+    f"{accuracy_score(categories, y_pred) * 100:.2f}%"
+)
+print(classification_report(categories, y_pred, zero_division=0))
